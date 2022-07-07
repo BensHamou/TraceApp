@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+
+    <!--========== BOX ICONS ==========-->
+    <script src="https://kit.fontawesome.com/27f41bacfd.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <!--========== CSS ==========-->
+    <link rel="stylesheet" href="/static/css/styles.css">
+
+    <title>TraceModule</title>
+</head>
+<body>
+    <header class="header">
+        <div class="header__container">
+            <a href="#" class="header__logo">Case - 01</a>
+            <div class="header__toggle">
+                <i class='bx bx-menu' id="header-toggle"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="nav" id="navbar">
+        <nav class="nav__container">
+            <div>
+                <a href="#" class="nav__link nav__logo">
+                    <i class="fas fa-leaf" style="color: #eb8f34"></i>
+                    <span class="nav__logo-name" >Archive for IMPROVEMENT</span>
+                </a>
+
+                <div class="nav__list">
+                    <div class="nav__items">
+                        <h3 class="nav__subtitle">MENU</h3>
+                        <div class="nav__dropdown" >
+                            <a href="#" class="nav__link" >
+                                <i class="fas fa-database" style="color: #00A7E1"></i>
+                                <span class="nav__name"  >MetaDataset</span>
+                            </a>
+                        </div>
+                        <div class="nav__dropdown">
+                            <a href="#" class="nav__link">
+                                <i class="fas fa-cogs" style="color: #1dd3b0"></i>
+                                <span class="nav__name">MetaModel</span>
+                            </a>
+                        </div>  
+                    </div>          
+                </div>
+            </div>
+        </nav>
+    </div>
+    <main>
+        <div class="row ">
+            <div class="col-md-4 col-sm-12"> 
+                <div class="card "  style="height: 95%; !important">
+                    <div class="form-group row ">
+                        </br> </br></br></br>
+                        <div>
+                        </br>
+                        <h4 style="text-align: center;color:#BB2D3B;font-weight: bold;" id="id"></h4>
+                        </div>
+                        <div class="col-md-10 offset-1"><p id="from_storedIn"></p></div></br></br></br>
+                        <div class="col-md-10 offset-1"><p id="desc"></p></div></br></br> </br></br></br>
+                        <div class="col-md-10 offset-1"><p id="createdAt"></p></div></br></br> </br>
+                        <div class="col-md-10 offset-1"><p id="num_inst"></p></div></br></br> </br>
+                        <div class="col-md-10 offset-1"><p id="att"></p>
+                            <select style="font-size: 15px;" name="attributes" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" onchange="displayAtt()" id="attributes"></select>
+                        </div></br></br> </br></br> </br>
+                        <div class="col-md-10 offset-1"><p id="Dtechs"></p>
+                            <select style="font-size: 15px;" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" id="Dtechniques"></select>
+                        </div></br></br> </br></br> </br>
+                    </div>
+
+                </div></br> 
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <div class="card" style="height: 95%; !important">
+                    <div>
+                    </br>
+                        <h4 style="text-align: center;color:#BB2D3B;font-weight: bold;" id="attOrTech">Attribute</h4>
+                    </div></br></br>
+                    <div class="col-md-10 offset-1"><p id="attDesc"></p></div></br>
+                    <div class="col-md-10 offset-1"><p id="attType"></p></div></br>
+                    <div class="col-md-10 offset-1"><p id="attmissdisuni"></p></div></br>
+                    <div class="col-md-10 offset-1" id="statORlabel"><p id="statORlabels"></p></br></div></br>
+                    <div class="col-md-10 offset-1"><p id="Atechs"></p>
+                        <select style="font-size: 15px;" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" id="Atechniques"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <div class="card" style="height: 95%; !important">
+                    <div>
+                    </br>
+                        <h4 style="text-align: center;color:#BB2D3B;font-weight: bold;" id="attOrTech">Techniques</h4>
+                    </div></br></br>
+                    <div class="col-md-10 offset-1"><p id="attDesc"></p></div></br>
+                    <div class="col-md-10 offset-1"><p id="attType"></p></div></br>
+                    <div class="col-md-10 offset-1"><p id="attmissdisuni"></p></div></br>
+                    <div class="col-md-10 offset-1" id="statORlabel"><p id="statORlabels"></p></br></div></br>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+<script>
+        async function displayAtt() {
+            const res = await fetch('json_data.json');
+            const dataset = await res.json();
+            var atts = document.getElementById('attributes');
+            const att = dataset.attributes[atts.value - 1]
+            document.getElementById("attOrTech").innerHTML = "Attribute " + atts.value + ": '" + att.name + "'"
+            document.getElementById("attDesc").innerHTML = "Description: " + att.description
+            document.getElementById("attType").innerHTML = "It is a " + att.typeA + " attribute"
+            document.getElementById("attmissdisuni").innerHTML = "There are " + att.missing + " missing values, " + att.distinct + " distinct values and " + att.unique + " unique values"
+            var statORlabel = document.getElementById("statORlabel");
+
+
+            if(att.typeA == "Numerical"){
+                document.getElementById("statORlabels").innerHTML = "Stats: "
+                for (var i = 0; i<att.stats.length; i++){
+                    var opt = document.createElement('p');
+                    var text = document.createTextNode(att.stats[i].typeS + ": " + att.stats[i].value);
+                    opt.appendChild(text);
+                    statORlabel.appendChild(opt);
+                }
+            }
+            if(att.typeA == "Nominal"){
+                document.getElementById("statORlabels").innerHTML = "Groups: "
+                for (var i = 0; i<att.labels.length; i++){
+                    var opt = document.createElement('p');
+                    var text = document.createTextNode(att.labels[i].name + ": count - " + att.labels[i].count + " and weight - " + att.labels[i].weight );
+                    opt.appendChild(text);
+                    statORlabel.appendChild(opt);
+                }
+            }
+
+            var applied_techniques = document.getElementById("applied_techniques");
+            var techs = document.getElementById('techniques');
+            if(att.applied_techniques.length == 0){
+                techs.style.display = "none"
+                document.getElementById("techs").innerHTML = "There is no applied technique on the dataset"
+            }else{
+                techs.style.display = "block"
+                document.getElementById("techs").innerHTML = "Here are the applied techniques on the dataset"
+                for (var i = 0; i<dataset.applied_techniques.length; i++){
+                    var opt = document.createElement('option');
+                    opt.value = dataset.attributes[i].id_attribute;
+                    opt.innerHTML = dataset.attributes[i].name;
+                    techs.appendChild(opt);
+                }
+            }
+            
+            var techsA = document.getElementById('Atechniques');
+            if(att.applied_techniques.length == 0){
+                techsA.style.display = "none"
+                document.getElementById("Atechs").innerHTML = "There is no applied technique on the attribute"
+            }else{
+                techsA.style.display = "block"
+                document.getElementById("Atechs").innerHTML = "Here are the applied techniques on the attribute"
+                for (var i = 0; i<att.applied_techniques.length; i++){
+                    var opt = document.createElement('option');
+                    opt.value = att.attributes[i].id_attribute;
+                    opt.innerHTML = att.attributes[i].name;
+                    techs.appendChild(opt);
+                }
+            }
+        }
+        async function loadJson() {
+        const res = await fetch('json_data.json');
+        const dataset = await res.json();
+        console.log(dataset);
+        document.getElementById("id").innerHTML = "Metadata: Dataset " + dataset.id
+        document.getElementById("from_storedIn").innerHTML = "Data provided by " + dataset.author + ", stored in " + dataset.stored_in
+        document.getElementById("desc").innerHTML = "Description: " + dataset.description
+        document.getElementById("createdAt").innerHTML = "Created at " + dataset.createdAt
+        document.getElementById("num_inst").innerHTML = "This dataset contains " + dataset.number_instances + " instances"
+        document.getElementById("att").innerHTML = "There are " + dataset.number__attributes + " attributes -"
+        var atts = document.getElementById('attributes');
+        for (var i = 0; i<dataset.number__attributes; i++){
+            var opt = document.createElement('option');
+            opt.value = dataset.attributes[i].id_attribute;
+            opt.innerHTML = dataset.attributes[i].name;
+            atts.appendChild(opt);
+        }
+
+        var techsD = document.getElementById('Dtechniques');
+        if(dataset.applied_techniques.length == 0){
+            techsD.style.display = "none"
+            document.getElementById("Dtechs").innerHTML = "There is no applied technique on the dataset"
+        }else{
+            techsD.style.display = "block"
+            document.getElementById("Dtechs").innerHTML = "Here are the applied techniques on the dataset"
+            for (var i = 0; i<dataset.applied_techniques.length; i++){
+                var opt = document.createElement('option');
+                opt.value = dataset.attributes[i].id_attribute;
+                opt.innerHTML = dataset.attributes[i].name;
+                techsD.appendChild(opt);
+            }
+        }
+    }
+    loadJson()
+</script>
+    
+</body>
+</html>
