@@ -39,7 +39,7 @@ const Attribute = ({ attribute, setTechnique }) => {
           <div className="col-md-10 offset-1">
             <p>Stats :</p>
             {attribute.stats.map((stat, i) => (
-              <p key={i}>{stat.typeS + " " + stat.value}</p>
+              <p key={i}>{stat.typeS + ": " + stat.value}</p>
             ))}
           </div>
         ) : attribute.typeA === "Nominal" ? (

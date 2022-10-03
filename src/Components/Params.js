@@ -12,9 +12,9 @@ function Params({ params }) {
           <strong>Used parameters: </strong>
           {params.map((param, i) => (
             <div key={i}>
-              '{param?.name}':
               {param.value.length === 0 ? (
                 <>
+                  '{param?.name}':
                   {Object.entries(param.others).map(([key, value], i) => {
                     const ind = i + 1;
                     return (
