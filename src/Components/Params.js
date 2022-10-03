@@ -2,9 +2,9 @@ import React from "react";
 
 function Params({ params }) {
   return (
-    <div>
+    <div className="col-md-10 offset-1">
       {params.length === 0 ? (
-        <div className="col-md-10 offset-1">
+        <div>
           <p>The parameters were kept as default.</p>
         </div>
       ) : (

@@ -174,7 +174,6 @@
         async function loadJson() {
         const res = await fetch('json_data.json');
         const dataset = await res.json();
-        console.log(dataset);
         document.getElementById("id").innerHTML = "Metadata: Dataset " + dataset.id
         document.getElementById("from_storedIn").innerHTML = "Data provided by " + dataset.author + ", stored in " + dataset.stored_in
         document.getElementById("desc").innerHTML = "Description: " + dataset.description

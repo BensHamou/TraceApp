@@ -13,25 +13,25 @@ const Attribute = ({ attribute, setTechnique }) => {
               fontWeight: "bold",
             }}
           >
-            Attribute: "{attribute.name}"
+            Attribute: "{attribute?.name}"
           </h5>
         </div>
         <div className="col-md-10 offset-1">
           <p>
             <strong>Description: </strong>
-            {attribute.description}
+            {attribute?.description}
           </p>
         </div>
         <div className="col-md-10 offset-1">
           <p>
-            It is a <strong>{attribute.typeA}</strong> type of attribute
+            It is a <strong>{attribute?.typeA}</strong> type of attribute
           </p>
         </div>
         <div className="col-md-10 offset-1">
           <p>
-            There are <strong>{attribute.missing}</strong> missing values,{" "}
-            <strong>{attribute.distinct}</strong> distinct values and{" "}
-            <strong>{attribute.unique}</strong> unique values
+            There are <strong>{attribute?.missing}</strong> missing values,{" "}
+            <strong>{attribute?.distinct}</strong> distinct values and{" "}
+            <strong>{attribute?.unique}</strong> unique values
           </p>
         </div>
 
